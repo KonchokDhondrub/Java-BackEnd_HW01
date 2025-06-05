@@ -7,13 +7,13 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class DataProcessor {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
 //            Scanner scanner = new Scanner(System.in);
 
             System.out.print("Введите имя файла: ");
             String fileNameInput = scanner.nextLine();
-            fileNameInput = "inputData.txt";
+            // fileNameInput = "inputData.txt";
 
             File file = new File(fileNameInput);
 
@@ -30,6 +30,7 @@ public class DataProcessor {
             /// Clearing empty lines
             List<String> incomeData = Files.readAllLines(Path.of(file.getPath()))
                     .stream()
+                    .map(String::trim)
                     .filter(line -> !line.trim().isEmpty())
                     .toList();
             if (incomeData.isEmpty()) {
@@ -65,7 +66,7 @@ public class DataProcessor {
             System.out.printf("%d. %s \n", i + 1, operators.get(i));
         }
         System.out.print("Выберите номер операции: ");
-        int select = 0;
+        int select;
         do {
             select = scanner.nextInt() - 1;
         } while (select < 0 || select >= operators.size());
@@ -79,7 +80,7 @@ public class DataProcessor {
         String part1 = (dotIndex != -1) ? fileNameInput.substring(0, dotIndex) : fileNameInput;
         String part2 = (dotIndex != -1) ? fileNameInput.substring(dotIndex) : "";
 
-        return part1 + "_" + selectedOperation + part2;
+        return part1 + "_" + selectedOperation.toLowerCase() + part2;
     }
 
     public static void saveToFile(List<String> resultData, String newOutputName) throws IOException {

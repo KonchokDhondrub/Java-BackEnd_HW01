@@ -40,19 +40,13 @@ public class DataProcessor {
 
             List<String> resultData = new ArrayList<>(incomeData);
 
-            List<String> operators = List.of("Sort", "Shuffle", "Reverse");
-
+            List<String> operators = new ArrayList<>(OperationRegistry.availableOperations());
             /// Menu
             String selectedOperation = menu(scanner, operators);
-
-            switch (selectedOperation) {
-                case "Sort" -> Collections.sort(resultData);
-                case "Shuffle" -> Collections.shuffle(resultData);
-                case "Reverse" -> Collections.reverse(resultData);
-                default -> System.out.println("Неверный выбор операции");
-            }
+            OperationRegistry.applyOperation(selectedOperation, resultData);
 
             String newOutputName = createNewOutputFileName(fileNameInput, selectedOperation);
+            ///  Saving to file
             saveToFile(resultData, newOutputName);
 
         } catch (IOException e) {
@@ -80,7 +74,7 @@ public class DataProcessor {
         String part1 = (dotIndex != -1) ? fileNameInput.substring(0, dotIndex) : fileNameInput;
         String part2 = (dotIndex != -1) ? fileNameInput.substring(dotIndex) : "";
 
-        return part1 + "_" + selectedOperation.toLowerCase() + part2;
+        return part1 + "_" + selectedOperation.replace(" ", "") + part2;
     }
 
     public static void saveToFile(List<String> resultData, String newOutputName) throws IOException {

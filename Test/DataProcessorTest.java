@@ -1,4 +1,4 @@
-import dataProcessor.DataProcessor;
+import dataProcessor.DataProcessorAppl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -64,7 +64,7 @@ public class DataProcessorTest {
             String input = "filename.txt";
             String operationName = "Sort";
             String expected = "filename_sort.txt";
-            String actual = DataProcessor.createNewOutputFileName(input, operationName);
+            String actual = DataProcessorAppl.createNewOutputFileName(input, operationName);
             Assertions.assertEquals(expected, actual);
         }
 
@@ -74,7 +74,7 @@ public class DataProcessorTest {
             String input = "filename";
             String operationName = "Sort";
             String expected = "filename_sort";
-            String actual = DataProcessor.createNewOutputFileName(input, operationName);
+            String actual = DataProcessorAppl.createNewOutputFileName(input, operationName);
             Assertions.assertEquals(expected, actual);
         }
 
@@ -84,7 +84,7 @@ public class DataProcessorTest {
             String input = "filename.module.txt";
             String operationName = "Sort";
             String expected = "filename_sort.module.txt";
-            String actual = DataProcessor.createNewOutputFileName(input, operationName);
+            String actual = DataProcessorAppl.createNewOutputFileName(input, operationName);
             Assertions.assertEquals(expected, actual);
         }
 
